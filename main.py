@@ -26,10 +26,26 @@ def get_seed_from_time():
            ((t & 0x000000ff) << 24)
 
 
+def display_menu():
+    return int(input(
+        '1- repeat with same argument\n' +
+        '2- repeat with different arguments\n'
+        '3- read inputs from file (start,end,count,seed) each separated by new line\n'
+        '4- exit\n'))
+
+
+def first_time_display_menu():
+    return int(input(
+        '2- type arguments\n'
+        '3- read inputs from file (start,end,count,seed) each separated by new line\n'
+        '4- exit\n'))
+
+
 if __name__ == '__main__':
-    print("Welcome to Random number generator using [Linear congruential generator]")
-    option = 2
+    print("Welcome to Random number generator using [Linear congruential generator] By Omar Ahme Aly ID: 2000134")
+    option = first_time_display_menu()
     start, end, count = 0, 100, 10
+    seed_from_file = False
     while True:
         if option == 2:
             start = input("Please enter beginning of interval:\n")
@@ -40,21 +56,30 @@ if __name__ == '__main__':
 
             count = input("Please enter count of interval:\n")
             count = int(count)
+        elif option == 3:
+            seed_from_file = True
+            with open('input', 'r') as f:
+                start = int(f.readline())
+                end = int(f.readline())
+                count = int(f.readline())
+                seed = int(f.readline())
 
-        generator = lcg(M, C, A, get_seed_from_time())
+        if not seed_from_file:
+            seed = get_seed_from_time()
+
+        generator = lcg(M, C, A, seed)
         random_list = []
+        print(f'start{start},end{end},count{count},seed{seed}')
         for i in range(count):
             random_list.append(cut_to_range(start, end, generator, M))
 
         print(f'list={random_list}')
 
-        option = 1
-        input_option = input(
-            '1- repeat with same argument\n'
-            '2- repeat with different arguments\n'
-            '3- exit\n')
+        input_option = display_menu()
+
+        option = 1  # initializing default value
         if input_option:
             option = int(input_option)
 
-        if option == 3:
+        if option == 4:
             exit()
