@@ -42,7 +42,7 @@ def first_time_display_menu():
 
 
 if __name__ == '__main__':
-    print("Welcome to Random number generator using [Linear congruential generator] By Omar Ahme Aly ID: 2000134")
+    print("Welcome to Random number generator using [Linear congruential generator] Omar Ahmed Aly ID:200134")
     option = first_time_display_menu()
     start, end, count = 0, 100, 10
     seed_from_file = False
@@ -69,7 +69,7 @@ if __name__ == '__main__':
 
         generator = lcg(M, C, A, seed)
         random_list = []
-        print(f'start{start},end{end},count{count},seed{seed}')
+        print(f'arguments = start: {start}, end: {end},count: {count},seed: {seed}')
         for i in range(count):
             random_list.append(cut_to_range(start, end, generator, M))
 
@@ -83,3 +83,4 @@ if __name__ == '__main__':
 
         if option == 4:
             exit()
+
